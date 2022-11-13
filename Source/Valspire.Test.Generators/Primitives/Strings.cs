@@ -22,6 +22,7 @@ public static class Strings
 	public static string GenerateSymbol() => FromCharacters(Symbols, 1u);
 	public static string GenerateLetter() => GenerateLetters(1u);
 
+	public static string GenerateSpace() => " " ;
 	public static string GenerateDigit() => FromCharacters(Digits, 1u);
 	public static string GenerateLetterOrSpace() => GenerateLettersAndSpaces(1u);
 	public static string GenerateLetters(uint length) => FromCharacters(Letters, length);

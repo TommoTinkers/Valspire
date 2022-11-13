@@ -85,7 +85,7 @@ public class CharacterNameValidatorTests
 	[Repeat(50)]
 	public void Character_Name_With_Letters_Spaces_And_Numbers_Should_Return_Ok([Range(3u, 16u)] uint length)
 	{
-		var input = MixedCycle(length, GenerateLetter, GenerateDigit, GenerateLetterOrSpace);
+		var input = MixedCycle(length, GenerateLetter, GenerateDigit, GenerateSpace);
 
 		var result = Validate(input);
 
