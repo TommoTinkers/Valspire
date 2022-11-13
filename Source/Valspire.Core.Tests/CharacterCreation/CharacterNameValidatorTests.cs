@@ -1,6 +1,5 @@
 using FluentAssertions;
 using NUnit.Framework;
-using Valspire.Core.CharacterCreation;
 using static Valspire.Core.CharacterCreation.CharacterNameValidator;
 using static Valspire.Core.CharacterCreation.CharacterNameValidator.Result;
 using static Valspire.Test.Generators.Primitives.Strings;
@@ -113,7 +112,7 @@ public class CharacterNameValidatorTests
 	[Repeat(50)]
 	public void Character_Name_Starting_With_Spaces_Returns_Leading_Whitespace_Error([Range(MinLength, MaxLength - 1u)] uint lengthOfSpaces)
 	{
-		var remainingLength = 16u - lengthOfSpaces;
+		var remainingLength = MaxLength - lengthOfSpaces;
 		var input = Spaces(lengthOfSpaces)().FollowedByMixOf(remainingLength, Letter, Digit, Space);
 
 		var result = Validate(input);
@@ -125,7 +124,7 @@ public class CharacterNameValidatorTests
 	[Repeat(50)]
 	public void Character_Name_Ending_With_Space_Returns_Trailing_Whitespace_Error([Range(MinLength, MaxLength - 1u)] uint lengthOfSpaces)
 	{
-		var startLength = 16u - lengthOfSpaces;
+		var startLength = MaxLength - lengthOfSpaces;
 		var input = MixOf(startLength, Letter, Digit).FollowedByMixOf(lengthOfSpaces, Space);
 
 		var result = Validate(input);
@@ -135,7 +134,7 @@ public class CharacterNameValidatorTests
 
 	[Test]
 	[Repeat(50)]
-	public void Character_Name_With_Groups_Of_Spaces_Returns_Invalid_Whitespace_Error([Range(MinLength + 1u, MaxLength)] uint length, [Range(2u, 14u)] uint spaceGroupSize)
+	public void Character_Name_With_Groups_Of_Spaces_Returns_Invalid_Whitespace_Error([Range(MinLength + 1u, MaxLength)] uint length, [Range(2u, MaxLength - 2u)] uint spaceGroupSize)
 	{
 		var start = OneOf(Letter, Digit);
 		var middle = Cycle(length - 2,  Spaces(spaceGroupSize), Digit, Letter);

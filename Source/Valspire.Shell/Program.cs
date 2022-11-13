@@ -3,14 +3,14 @@ using Valspire.Test.Generators.Primitives;
 
 using var fw = new StreamWriter("D:/Samples.txt");
 
-var sampleLength = 16u;
-var samplesToGenerate = 50000u;
+
+const uint samplesToGenerate = 1u;
 var samplesGenerated = 0u;
 
 while(samplesGenerated < samplesToGenerate)
 {
 	
-		var sample = Strings.Nonsense(16u);
+		var sample = Strings.Nonsense(CharacterNameValidator.MaxLength);
 		if (sample.All(char.IsWhiteSpace))
 		{
 			continue;
