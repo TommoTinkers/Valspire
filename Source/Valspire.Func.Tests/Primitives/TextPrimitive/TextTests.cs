@@ -37,7 +37,7 @@ public class TextTests
 	}
 
 	[Test]
-	public void Text_Created_With_Whitepsace_Throws_A_Blank_Text_Exception([Range(1u, 1000u)] uint length)
+	public void Text_Created_With_Whitepsace_Throws_A_Blank_Text_Exception([Range(1u, 100u)] uint length)
 	{
 		var whitespace = GenerateWhitespace(length);
 		var TryAndCreateTextWithBlankString = () => new Text(whitespace);
@@ -49,7 +49,7 @@ public class TextTests
 	}
 
 	[Test]
-	public void Text_Created_With_At_Least_One_Non_Whitespace_Character_Does_Not_Throw_An_Exception([Range(1u, 1000u)] uint length)
+	public void Text_Created_With_At_Least_One_Non_Whitespace_Character_Does_Not_Throw_An_Exception([Range(1u, 100u)] uint length)
 	{
 		var noneWhitespace = GenerateNonWhitespace(length);
 
@@ -61,7 +61,7 @@ public class TextTests
 	}
 
 	[Test]
-	public void Text_With_Mix_Of_Whitespace_And_None_Whitespace_Does_Not_Throw_An_Exception([Range(2u, 1000u)] uint length)
+	public void Text_With_Mix_Of_Whitespace_And_None_Whitespace_Does_Not_Throw_An_Exception([Range(2u, 100u)] uint length)
 	{
 		var nonWhitespace = GenerateNonWhitespace(length / 2);
 		var whitespace = GenerateWhitespace(length / 2);
@@ -75,7 +75,7 @@ public class TextTests
 	}
 
 	[Test]
-	public void Text_With_Mix_Of_Whitespace_And_None_Whitespace_Has_The_Same_Value_It_Was_Constructed_With([Range(2u, 1000u)] uint length)
+	public void Text_With_Mix_Of_Whitespace_And_None_Whitespace_Has_The_Same_Value_It_Was_Constructed_With([Range(2u, 100u)] uint length)
 	{
 		var nonWhitespace = GenerateNonWhitespace(length / 2);
 		var whitespace = GenerateWhitespace(length / 2);
@@ -87,12 +87,32 @@ public class TextTests
 	}
 
 	[Test]
-	public void Text_With_No_Whitespace_Has_Same_Value_It_Was_Constructed_With([Range(2u, 1000u)] uint length)
+	public void Text_With_No_Whitespace_Has_Same_Value_It_Was_Constructed_With([Range(2u, 100u)] uint length)
 	{
 		var nonWhitespace = GenerateNonWhitespace(length);
 
 		var text = new Text(nonWhitespace);
 
 		text.Value.Should().Be(nonWhitespace);
+	}
+
+	[Test]
+	public void Two_Texts_Constructed_With_Same_Value_Are_Equal_To_Each_Other([Range(1u, 100u)] uint length)
+	{
+		var nonWhitespace = GenerateNonWhitespace(length);
+		var copied = new string(nonWhitespace);
+		var text = new Text(nonWhitespace);
+		var copiedText = new Text(copied);
+
+		text.Should().Be(copiedText);
+	}
+
+	[Test]
+	public void Two_Texts_Constructed_With_Different_Values_Are_Not_Equal_To_Each_Other([Range(1u, 100u)] uint length)
+	{
+		var left = new Text(GenerateNonWhitespace(length));
+		var right = new Text(GenerateNonWhitespace(length));
+
+		left.Should().NotBe(right);
 	}
 }
