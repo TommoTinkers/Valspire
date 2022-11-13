@@ -13,7 +13,7 @@ public class CharacterNameValidatorTests
 	[Repeat(50)]
 	public void Character_Name_Less_Than_Three_Gives_A_Name_Too_Short_Error([Range(1u,2u)] uint length)
 	{
-		var input = Cycle(length, GenerateLetter, GenerateLetterOrSpace);
+		var input = MixedCycle(length, GenerateLetter, GenerateLetterOrSpace);
 
 		var result = Validate(input);
 
@@ -23,7 +23,7 @@ public class CharacterNameValidatorTests
 	[Test]
 	public void Character_Name_More_Than_Sixteen_Gives_A_Name_Too_Long_Error([Range(17u, 1000u)] uint length)
 	{
-		var lettersAndSpaces = Cycle(length, GenerateLetter, GenerateLetterOrSpace);
+		var lettersAndSpaces = MixedCycle(length, GenerateLetter, GenerateLetterOrSpace);
 
 		var result = Validate(lettersAndSpaces);
 
@@ -63,7 +63,7 @@ public class CharacterNameValidatorTests
 	[Test]
 	public void Character_Name_With_Only_Symbols_Should_Return_Invalid_Symbols([Range(3u, 16u)] uint length)
 	{
-		var input = Cycle(length, GenerateSymbol);
+		var input = MixedCycle(length, GenerateSymbol);
 
 		var result = Validate(input);
 
@@ -74,7 +74,29 @@ public class CharacterNameValidatorTests
 	[Repeat(50)]
 	public void Character_Name_With_Symbols_And_Letters_And_Spaces_Should_Return_Invalid_Symbols([Range(3u, 16u)] uint length)
 	{
-		var input = Cycle(length, GenerateLetter, GenerateSymbol, GenerateLetterOrSpace);
+		var input = MixedCycle(length, GenerateLetter, GenerateSymbol, GenerateLetterOrSpace);
+
+		var result = Validate(input);
+
+		result.Should().Be(InvalidSymbol);
+	}
+
+	[Test]
+	[Repeat(50)]
+	public void Character_Name_With_Letters_Spaces_And_Numbers_Should_Return_Ok([Range(3u, 16u)] uint length)
+	{
+		var input = MixedCycle(length, GenerateLetter, GenerateDigit, GenerateLetterOrSpace);
+
+		var result = Validate(input);
+
+		result.Should().Be(Ok);
+	}
+
+	[Test]
+	[Repeat(50)]
+	public void Character_Name_With_Other_Whitespace_Should_Return_Invalid_Symbols([Range(3u, 16u)] uint length)
+	{
+		var input = MixedCycle(length, GenerateLetter, GenerateOtherWhitespace);
 
 		var result = Validate(input);
 

@@ -19,7 +19,16 @@ public static class CharacterNameValidator
 		{
 			{ Length: < 3 } => TooShort,
 			{ Length: > 16 } => TooLong,
-			_ => proposedName.Value.All(char.IsLetter) ? Ok : InvalidSymbol
+			_ => proposedName.Value.All(ValidateCharacter) ? Ok : InvalidSymbol
 		};
 	}
+
+	private static bool ValidateCharacter(char c) => c switch
+	{
+		' ' => true,
+		_ when char.IsLetterOrDigit(c) => true,
+		_ => false
+	};
+
+
 }
