@@ -23,7 +23,8 @@ public static class Strings
 	public static string Letter() => Letters(1u);
 
 	public static string Space() => " " ;
-	public static string Spaces(uint amount) => new string(' ', (int)amount);
+	public static Func<string> Spaces(uint amount) => () => new string(' ', (int)amount);
+	
 	public static string Digit() => FromCharacters(Digits, 1u);
 	public static string LetterOrSpace() => LettersAndSpaces(1u);
 	public static string Letters(uint length) => FromCharacters(LetterSymbols, length);
@@ -50,9 +51,11 @@ public static class Strings
 	public static string FollowedByNonsense(this string value, uint length) => length > 0 ? $"{value}{Nonsense(length)}" : value;
 	
 	public static string FollowedByMixOf(this string value, uint length, params Func<string>[] generators) => length > 0 ? $"{value}{MixOf(length, generators)}" : value;
-	
-	
-	private static string Cycle(uint length, params Func<string>[] generators)
+
+	public static string FollowedByCycleOf(this string value, uint length, params Func<string>[] generators) =>
+		length > 0 ? $"{value}{Cycle(length, generators)}" : value;
+
+	public static string Cycle(uint length, params Func<string>[] generators)
 	{
 		var sb = new StringBuilder();
 		for (var x = 0u; x < length; x++)

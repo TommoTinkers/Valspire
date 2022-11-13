@@ -5,6 +5,9 @@ namespace Valspire.Core.CharacterCreation;
 
 public static class CharacterNameValidator
 {
+	public const uint MinLength = 3u;
+	public const uint MaxLength = 16u;
+	
 	public enum Result
 	{
 		TooShort,
@@ -12,7 +15,8 @@ public static class CharacterNameValidator
 		Ok,
 		InvalidSymbol,
 		InvalidLeadingSpaces,
-		InvalidTrailingSpaces
+		InvalidTrailingSpaces,
+		InvalidWhitespace
 	}
 	
 	public static Result Validate(Text proposedName)
@@ -20,18 +24,24 @@ public static class CharacterNameValidator
 		var name = proposedName.Value;
 		return name switch
 		{
-			{ Length: < 3 } => TooShort,
-			{ Length: > 16 } => TooLong,
-			_ => name.All(ValidateCharacter) is false ? InvalidSymbol : name.StartsWith(" ") ? InvalidLeadingSpaces : name.EndsWith(" ") ? InvalidTrailingSpaces : Ok
+			{ Length: < (int)MinLength } => TooShort,
+			{ Length: > (int)MaxLength } => TooLong,
+			_ => name.All(ValidateCharacter) is false 
+				? InvalidSymbol 
+				: name.StartsWith(" ")
+					? InvalidLeadingSpaces 
+					: name.EndsWith(" ") 
+						? InvalidTrailingSpaces
+						: name.Contains("  ")
+							? InvalidWhitespace 
+							: Ok
 		};
 	}
-
+	
 	private static bool ValidateCharacter(char c) => c switch
 	{
 		' ' => true,
 		_ when char.IsLetterOrDigit(c) => true,
 		_ => false
 	};
-
-
 }
