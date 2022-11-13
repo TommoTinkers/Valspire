@@ -9,6 +9,13 @@ public record Text
 			throw new NullTextException();
 		}
 
-		throw new BlankTextException();
+		if (string.IsNullOrWhiteSpace(Text))
+		{
+			throw new BlankTextException();
+		}
+
+		Value = Text;
 	}
+
+	public string Value { get; }
 }

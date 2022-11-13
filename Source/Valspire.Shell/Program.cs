@@ -1,3 +1,3 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Valspire.Test.Generators.Primitives;
 
-Console.WriteLine("Hello World");
+Console.WriteLine(Strings.Mix("Hello", "World"));
