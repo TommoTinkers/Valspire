@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Valspire.Func\Valspire.Func.csproj" />
+      <ProjectReference Include="..\Valspire.Test.Generators\Valspire.Test.Generators.csproj" />
     </ItemGroup>
 
 </Project>

@@ -36,9 +36,10 @@ public class TextTests
 	}
 
 	[Test]
-	public void Text_Created_With_Whitepsace_Throws_A_Blank_Text_Exception()
+	public void Text_Created_With_Whitepsace_Throws_A_Blank_Text_Exception([Range(1u, 1000u)] uint length)
 	{
-		var TryAndCreateTextWithBlankString = () => new Text(" ");
+		var whitespace = Valspire.Test.Generators.Primitives.Strings.GenerateWhitespace(length);
+		var TryAndCreateTextWithBlankString = () => new Text(whitespace);
 
 		TryAndCreateTextWithBlankString
 			.Should()
