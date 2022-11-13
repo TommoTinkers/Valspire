@@ -11,12 +11,12 @@ public static class Strings
 	public const string Digits = "1234567890";
 	public const string Space = " ";
 	public const string Whitespace = "\t\n\r ";
-	public const string NoneWhitespace = $"{Letters}{Digits}";
+	public const string NonWhitespace = $"{Letters}{Digits}";
 
 	private static readonly Random random = new();
 	
 	public static string GenerateWhitespace(uint length) => FromCharacters(Whitespace, length);
-	public static string GenerateNonWhitespace(uint length) => FromCharacters(NoneWhitespace, length);
+	public static string GenerateNonWhitespace(uint length) => FromCharacters(NonWhitespace, length);
 
 	public static string Mix(string left, string right) => $"{left}{right}"
 		.OrderBy(v => random.Next()).Select(a => a.ToString())

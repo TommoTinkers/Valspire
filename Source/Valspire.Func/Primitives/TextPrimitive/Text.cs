@@ -18,4 +18,8 @@ public record Text
 	}
 
 	public string Value { get; }
+	
+	public static implicit operator string(Text text) => text.Value;
+
+	public static implicit operator Text(string text) => text.AsText();
 }

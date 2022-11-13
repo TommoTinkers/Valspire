@@ -12,6 +12,32 @@ namespace Valspire.Func.Tests.Primitives.TextPrimitive;
 public class TextTests
 {
 	[Test]
+	public void Implicit_Cast_To_String_Gives_Value_That_Text_Was_Constructed_With([Range(1u, 100u)] uint length)
+	{
+		var input = GenerateNonWhitespace(length).AsText();
+		
+		void I_Need_A_String(string value)
+		{
+			value.Should().Be(input.Value);
+		}
+		
+		I_Need_A_String(input);
+	}
+
+	[Test]
+	public void Implicit_Cast_To_Text_Gives_A_Text_That_Matches_The_String_That_The_Text_Was_Created_With([Range(1u, 100u)] uint length)
+	{
+		var input = GenerateNonWhitespace(length);
+
+		void I_Need_A_Text(Text value)
+		{
+			value.Value.Should().Be(input);
+		}
+		
+		I_Need_A_Text(input);
+	}
+	
+	[Test]
 	public void Text_Created_With_A_Null_Value_Throws_A_Null_Text_Exception()
 	{
 		var TryAndCreateTextWithNullValue = () =>
