@@ -21,4 +21,10 @@
       <PackageReference Include="NUnit" Version="3.13.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Valspire.Core\Valspire.Core.csproj" />
+      <ProjectReference Include="..\Valspire.Func\Valspire.Func.csproj" />
+      <ProjectReference Include="..\Valspire.Test.Generators\Valspire.Test.Generators.csproj" />
+    </ItemGroup>
+
 </Project>

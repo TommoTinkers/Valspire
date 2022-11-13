@@ -15,4 +15,8 @@
       <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Valspire.Func\Valspire.Func.csproj" />
+    </ItemGroup>
+
 </Project>
