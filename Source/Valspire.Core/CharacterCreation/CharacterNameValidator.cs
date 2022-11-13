@@ -11,7 +11,8 @@ public static class CharacterNameValidator
 		TooLong,
 		Ok,
 		InvalidSymbol,
-		InvalidLeadingSpaces
+		InvalidLeadingSpaces,
+		InvalidTrailingSpaces
 	}
 	
 	public static Result Validate(Text proposedName)
@@ -21,7 +22,7 @@ public static class CharacterNameValidator
 		{
 			{ Length: < 3 } => TooShort,
 			{ Length: > 16 } => TooLong,
-			_ => name.All(ValidateCharacter) is false ? InvalidSymbol : name.StartsWith(" ") ? InvalidLeadingSpaces : Ok
+			_ => name.All(ValidateCharacter) is false ? InvalidSymbol : name.StartsWith(" ") ? InvalidLeadingSpaces : name.EndsWith(" ") ? InvalidTrailingSpaces : Ok
 		};
 	}
 

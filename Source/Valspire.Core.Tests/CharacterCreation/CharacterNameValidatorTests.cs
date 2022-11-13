@@ -88,7 +88,9 @@ public class CharacterNameValidatorTests
 	[Repeat(50)]
 	public void Character_Name_With_Letters_Spaces_And_Numbers_Should_Return_Ok([Range(3u, 16u)] uint length)
 	{
-		var input = OneOf(Letter, Digit).FollowedByMixOf(length - 1, Letter, Digit, Space);
+		var input = OneOf(Letter, Digit)
+			.FollowedByMixOf(length - 2, Letter, Digit, Space)
+			.FollowedByOneOf(Letter, Digit);
 
 		var result = Validate(input);
 
@@ -107,6 +109,7 @@ public class CharacterNameValidatorTests
 	}
 
 	[Test]
+	[Repeat(50)]
 	public void Character_Name_Starting_With_Spaces_Returns_Leading_Whitespace_Error([Range(3u, 15u)] uint lengthOfSpaces)
 	{
 		var remainingLength = 16u - lengthOfSpaces;
@@ -116,4 +119,17 @@ public class CharacterNameValidatorTests
 
 		result.Should().Be(InvalidLeadingSpaces);
 	}
+
+	[Test]
+	[Repeat(50)]
+	public void Character_Name_Ending_With_Space_Returns_Trailing_Whitespace_Error([Range(3u, 15u)] uint lengthOfSpaces)
+	{
+		var startLength = 16u - lengthOfSpaces;
+		var input = MixOf(startLength, Letter, Digit).FollowedByMixOf(lengthOfSpaces, Space);
+
+		var result = Validate(input);
+
+		result.Should().Be(InvalidTrailingSpaces);
+	}
+	
 }

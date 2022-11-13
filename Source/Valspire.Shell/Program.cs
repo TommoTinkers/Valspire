@@ -4,7 +4,7 @@ using Valspire.Test.Generators.Primitives;
 using var fw = new StreamWriter("D:/Samples.txt");
 
 var sampleLength = 16u;
-var samplesToGenerate = 200u;
+var samplesToGenerate = 50000u;
 var samplesGenerated = 0u;
 
 while(samplesGenerated < samplesToGenerate)

@@ -44,6 +44,9 @@ public static class Strings
 		return generators[index]();
 	}
 
+	public static string FollowedByOneOf(this string value, params Func<string>[] generators) =>
+		$"{value}{OneOf(generators)}"; 
+
 	public static string FollowedByNonsense(this string value, uint length) => length > 0 ? $"{value}{Nonsense(length)}" : value;
 	
 	public static string FollowedByMixOf(this string value, uint length, params Func<string>[] generators) => length > 0 ? $"{value}{MixOf(length, generators)}" : value;
