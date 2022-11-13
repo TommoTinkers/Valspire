@@ -14,7 +14,7 @@ public class TextTests
 	[Test]
 	public void Implicit_Cast_To_String_Gives_Value_That_Text_Was_Constructed_With([Range(1u, 100u)] uint length)
 	{
-		var input = GenerateNonWhitespace(length).AsText();
+		var input = NonWhitespace(length).AsText();
 		
 		void I_Need_A_String(string value)
 		{
@@ -27,7 +27,7 @@ public class TextTests
 	[Test]
 	public void Implicit_Cast_To_Text_Gives_A_Text_That_Matches_The_String_That_The_Text_Was_Created_With([Range(1u, 100u)] uint length)
 	{
-		var input = GenerateNonWhitespace(length);
+		var input = NonWhitespace(length);
 
 		void I_Need_A_Text(Text value)
 		{
@@ -65,7 +65,7 @@ public class TextTests
 	[Test]
 	public void Text_Created_With_Whitepsace_Throws_A_Blank_Text_Exception([Range(1u, 100u)] uint length)
 	{
-		var whitespace = GenerateWhitespace(length);
+		var whitespace = Whitespace(length);
 		var TryAndCreateTextWithBlankString = () => new Text(whitespace);
 
 		TryAndCreateTextWithBlankString
@@ -77,7 +77,7 @@ public class TextTests
 	[Test]
 	public void Text_Created_With_At_Least_One_Non_Whitespace_Character_Does_Not_Throw_An_Exception([Range(1u, 100u)] uint length)
 	{
-		var noneWhitespace = GenerateNonWhitespace(length);
+		var noneWhitespace = NonWhitespace(length);
 
 		var TryAndCreateText = () => new Text(noneWhitespace);
 
@@ -89,8 +89,8 @@ public class TextTests
 	[Test]
 	public void Text_With_Mix_Of_Whitespace_And_None_Whitespace_Does_Not_Throw_An_Exception([Range(2u, 100u)] uint length)
 	{
-		var nonWhitespace = GenerateNonWhitespace(length / 2);
-		var whitespace = GenerateWhitespace(length / 2);
+		var nonWhitespace = NonWhitespace(length / 2);
+		var whitespace = Whitespace(length / 2);
 		var mixedInput = Mix(whitespace, nonWhitespace);
 
 		var TryAndCreateText = () => new Text(mixedInput);
@@ -103,8 +103,8 @@ public class TextTests
 	[Test]
 	public void Text_With_Mix_Of_Whitespace_And_None_Whitespace_Has_The_Same_Value_It_Was_Constructed_With([Range(2u, 100u)] uint length)
 	{
-		var nonWhitespace = GenerateNonWhitespace(length / 2);
-		var whitespace = GenerateWhitespace(length / 2);
+		var nonWhitespace = NonWhitespace(length / 2);
+		var whitespace = Whitespace(length / 2);
 		var mixedInput = Mix(whitespace, nonWhitespace);
 
 		var text = new Text(mixedInput);
@@ -115,7 +115,7 @@ public class TextTests
 	[Test]
 	public void Text_With_No_Whitespace_Has_Same_Value_It_Was_Constructed_With([Range(2u, 100u)] uint length)
 	{
-		var nonWhitespace = GenerateNonWhitespace(length);
+		var nonWhitespace = NonWhitespace(length);
 
 		var text = new Text(nonWhitespace);
 
@@ -125,7 +125,7 @@ public class TextTests
 	[Test]
 	public void Two_Texts_Constructed_With_Same_Value_Are_Equal_To_Each_Other([Range(1u, 100u)] uint length)
 	{
-		var nonWhitespace = GenerateNonWhitespace(length);
+		var nonWhitespace = NonWhitespace(length);
 		var copied = new string(nonWhitespace);
 		var text = new Text(nonWhitespace);
 		var copiedText = new Text(copied);
@@ -136,8 +136,8 @@ public class TextTests
 	[Test]
 	public void Two_Texts_Constructed_With_Different_Values_Are_Not_Equal_To_Each_Other([Range(1u, 100u)] uint length)
 	{
-		var left = new Text(GenerateNonWhitespace(length));
-		var right = new Text(GenerateNonWhitespace(length));
+		var left = new Text(NonWhitespace(length));
+		var right = new Text(NonWhitespace(length));
 
 		left.Should().NotBe(right);
 	}

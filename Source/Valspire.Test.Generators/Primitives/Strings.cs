@@ -6,37 +6,50 @@ namespace Valspire.Test.Generators.Primitives;
 
 public static class Strings
 {
-	public const string UpperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	public const string LowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
-	public const string Letters = $"{UpperCaseLetters}{LowerCaseLetters}";
-	public const string Digits = "1234567890";
-	public const string Space = " ";
-	public const string OtherWhitespace = "\t\n\r";
-	public const string AllWhitespace = $"{Space}{OtherWhitespace}";
-	public const string NonWhitespace = $"{Letters}{Digits}{Symbols}";
-	public const string Symbols = "!\"£$%^&*()_+-=[];'#,./{}:@~<>?\\|";
-	public const string All = $"{NonWhitespace}{AllWhitespace}";
+	private const string UpperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private const string LowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
+	private const string LetterSymbols = $"{UpperCaseLetters}{LowerCaseLetters}";
+	private const string Digits = "1234567890";
+	private const string SpaceSymbol = " ";
+	private const string OtherWhitespaceSymbol = "\t\n\r";
+	private const string AllWhitespace = $"{SpaceSymbol}{OtherWhitespaceSymbol}";
+	private const string NonWhitespaceSymbols = $"{LetterSymbols}{Digits}{Symbols}";
+	private const string Symbols = "!\"£$%^&*()_+-=[];'#,./{}:@~<>?\\|";
+	private const string All = $"{NonWhitespaceSymbols}{AllWhitespace}";
 	private static readonly Random random = new();
 
 
-	public static string GenerateSymbol() => FromCharacters(Symbols, 1u);
-	public static string GenerateLetter() => GenerateLetters(1u);
+	public static string Symbol() => FromCharacters(Symbols, 1u);
+	public static string Letter() => Letters(1u);
 
-	public static string GenerateSpace() => " " ;
-	public static string GenerateDigit() => FromCharacters(Digits, 1u);
-	public static string GenerateLetterOrSpace() => GenerateLettersAndSpaces(1u);
-	public static string GenerateLetters(uint length) => FromCharacters(Letters, length);
+	public static string Space() => " " ;
+	public static string Spaces(uint amount) => new string(' ', (int)amount);
+	public static string Digit() => FromCharacters(Digits, 1u);
+	public static string LetterOrSpace() => LettersAndSpaces(1u);
+	public static string Letters(uint length) => FromCharacters(LetterSymbols, length);
 
-	public static string GenerateOtherWhitespace() => FromCharacters(OtherWhitespace, 1u);
+	public static string OtherWhiteSpace() => FromCharacters(OtherWhitespaceSymbol, 1u);
+
+	private static string LettersAndSpaces(uint length) => FromCharacters($"{SpaceSymbol}{LetterSymbols}", length);
+	public static string Whitespace(uint length) => FromCharacters(AllWhitespace, length);
+	public static string NonWhitespace(uint length) => FromCharacters(NonWhitespaceSymbols, length);
+
+	public static string Nonsense(uint length) => FromCharacters(All, length);
+
+	public static string MixOf(uint length, params Func<string>[] generators) => Mix(Cycle(length, generators));
+
+	public static string OneOf(params Func<string>[] generators)
+	{
+		var index = random.Next(0, generators.Length);
+		return generators[index]();
+	}
+
+	public static string FollowedByNonsense(this string value, uint length) => length > 0 ? $"{value}{Nonsense(length)}" : value;
 	
-	public static string GenerateLettersAndSpaces(uint length) => FromCharacters($"{Space}{Letters}", length);
-	public static string GenerateWhitespace(uint length) => FromCharacters(AllWhitespace, length);
-	public static string GenerateNonWhitespace(uint length) => FromCharacters(NonWhitespace, length);
-
-	public static string GenerateNonsense(uint length) => FromCharacters(All, length);
-
-	public static string MixedCycle(uint length, params Func<string>[] generators) => Mix(Cycle(length, generators));
-	public static string Cycle(uint length, params Func<string>[] generators)
+	public static string FollowedByMixOf(this string value, uint length, params Func<string>[] generators) => length > 0 ? $"{value}{MixOf(length, generators)}" : value;
+	
+	
+	private static string Cycle(uint length, params Func<string>[] generators)
 	{
 		var sb = new StringBuilder();
 		for (var x = 0u; x < length; x++)
@@ -63,7 +76,7 @@ public static class Strings
 	
 	private static string FromCharacters(string characters, uint length = 10u) =>
 		Range(0, (int)length)
-		.Select(_ => OneOf(characters).ToString())
+		.Select(_ => Characters.OneOf(characters).ToString())
 		.Aggregate((a,b) => $"{a}{b}");
 }
 

@@ -10,16 +10,18 @@ public static class CharacterNameValidator
 		TooShort,
 		TooLong,
 		Ok,
-		InvalidSymbol
+		InvalidSymbol,
+		InvalidLeadingSpaces
 	}
 	
-	public static object Validate(Text proposedName)
+	public static Result Validate(Text proposedName)
 	{
-		return proposedName.Value switch
+		var name = proposedName.Value;
+		return name switch
 		{
 			{ Length: < 3 } => TooShort,
 			{ Length: > 16 } => TooLong,
-			_ => proposedName.Value.All(ValidateCharacter) ? Ok : InvalidSymbol
+			_ => name.All(ValidateCharacter) is false ? InvalidSymbol : name.StartsWith(" ") ? InvalidLeadingSpaces : Ok
 		};
 	}
 

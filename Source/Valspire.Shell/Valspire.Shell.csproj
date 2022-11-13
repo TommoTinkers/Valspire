@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Valspire.Core\Valspire.Core.csproj" />
       <ProjectReference Include="..\Valspire.Test.Generators\Valspire.Test.Generators.csproj" />
     </ItemGroup>
 
