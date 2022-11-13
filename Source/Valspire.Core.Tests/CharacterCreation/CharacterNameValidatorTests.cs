@@ -33,7 +33,7 @@ public class CharacterNameValidatorTests
 	[Test]
 	public void Character_Name_More_Than_Two_Does_Not_Give_A_Too_Short_Error([Range(3u, 500u)] uint length)
 	{
-		var input = Nonsense(length);
+		var input = GenerateNonsense(length);
 
 		var result = Validate(input);
 
@@ -43,7 +43,7 @@ public class CharacterNameValidatorTests
 	[Test]
 	public void Character_Name_Less_Than_Seventeen_Does_Not_Give_A_Too_Long_Error([Range(1u, 16u)] uint length)
 	{
-		var input = Nonsense(length);
+		var input = GenerateNonsense(length);
 
 		var result = Validate(input);
 

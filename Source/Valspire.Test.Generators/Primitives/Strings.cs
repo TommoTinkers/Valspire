@@ -32,7 +32,7 @@ public static class Strings
 	public static string GenerateWhitespace(uint length) => FromCharacters(AllWhitespace, length);
 	public static string GenerateNonWhitespace(uint length) => FromCharacters(NonWhitespace, length);
 
-	public static string Nonsense(uint length) => FromCharacters(All, length);
+	public static string GenerateNonsense(uint length) => FromCharacters(All, length);
 
 	public static string MixedCycle(uint length, params Func<string>[] generators) => Mix(Cycle(length, generators));
 	public static string Cycle(uint length, params Func<string>[] generators)
