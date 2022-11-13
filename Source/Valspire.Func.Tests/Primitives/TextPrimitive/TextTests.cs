@@ -85,4 +85,14 @@ public class TextTests
 
 		text.Value.Should().Be(mixedInput);
 	}
+
+	[Test]
+	public void Text_With_No_Whitespace_Has_Same_Value_It_Was_Constructed_With([Range(2u, 1000u)] uint length)
+	{
+		var nonWhitespace = GenerateNonWhitespace(length);
+
+		var text = new Text(nonWhitespace);
+
+		text.Value.Should().Be(nonWhitespace);
+	}
 }
