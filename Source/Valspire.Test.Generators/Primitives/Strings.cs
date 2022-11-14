@@ -77,7 +77,7 @@ public static class Strings
 		.OrderBy(v => random.Next()).Select(a => a.ToString())
 		.Aggregate((a, b) => $"{a}{b}");
 
-	public static string Mix(string value) =>
+	private static string Mix(string value) =>
 		value.OrderBy(v => random.Next()).Select(c => c.ToString()).Aggregate((a, b) => $"{a}{b}");
 	
 	private static string FromCharacters(string characters, uint length = 10u) =>
