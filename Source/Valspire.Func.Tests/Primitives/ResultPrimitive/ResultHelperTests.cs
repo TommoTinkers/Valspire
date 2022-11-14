@@ -16,8 +16,10 @@ public class ResultHelperTests
 	}
 
 	[Test]
-	public void Fail_With_Value_Gives_Failure_With_THe_Same_Value([Range(1u, 100u)] uint reason)
+	public void Fail_With_Value_Gives_Failure_With_The_Same_Value([Range(1u, 100u)] uint reason)
 	{
 		var failure = R.Fail<object, uint>(reason);
+
+		failure.Reason.Should().Be(reason);
 	}
 }
