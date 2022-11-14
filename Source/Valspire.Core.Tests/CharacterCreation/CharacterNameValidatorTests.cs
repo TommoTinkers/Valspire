@@ -1,5 +1,6 @@
 using FluentAssertions;
 using NUnit.Framework;
+using static Valspire.Core.Facts;
 using static Valspire.Core.CharacterCreation.CharacterNameValidator;
 using static Valspire.Core.CharacterCreation.CharacterNameValidator.Result;
 using static Valspire.Test.Generators.Primitives.Strings;
@@ -11,7 +12,7 @@ public class CharacterNameValidatorTests
 {
 	[Test]
 	[Repeat(50)]
-	public void Character_Name_Less_Than_Three_Gives_A_Name_Too_Short_Error([Range(1u,MinLength - 1u)] uint length)
+	public void Character_Name_Less_Than_Three_Gives_A_Name_Too_Short_Error([Range(1u, MinCharacterNameLength - 1u)] uint length)
 	{
 		var input = MixOf(length, Letter, LetterOrSpace);
 
@@ -21,7 +22,7 @@ public class CharacterNameValidatorTests
 	}
 
 	[Test]
-	public void Character_Name_More_Than_Sixteen_Gives_A_Name_Too_Long_Error([Range(MaxLength + 1u, 1000u)] uint length)
+	public void Character_Name_More_Than_Sixteen_Gives_A_Name_Too_Long_Error([Range(MaxCharacterNameLength + 1u, 1000u)] uint length)
 	{
 		var lettersAndSpaces = MixOf(length, Letter, LetterOrSpace);
 
@@ -31,7 +32,7 @@ public class CharacterNameValidatorTests
 	}
 
 	[Test]
-	public void Character_Name_More_Than_Two_Does_Not_Give_A_Too_Short_Error([Range(MinLength, 500u)] uint length)
+	public void Character_Name_More_Than_Two_Does_Not_Give_A_Too_Short_Error([Range(MinCharacterNameLength, 500u)] uint length)
 	{
 		var input = Nonsense(length);
 
@@ -42,7 +43,7 @@ public class CharacterNameValidatorTests
 
 	[Test]
 	[Repeat(50)]
-	public void Character_Name_Less_Than_Seventeen_Does_Not_Give_A_Too_Long_Error([Range(1u, MaxLength)] uint length)
+	public void Character_Name_Less_Than_Seventeen_Does_Not_Give_A_Too_Long_Error([Range(1u, MaxCharacterNameLength)] uint length)
 	{
 			var input = OneOf(Letter, Digit).FollowedByNonsense(length - 1);
 
@@ -53,7 +54,7 @@ public class CharacterNameValidatorTests
 	}
 
 	[Test]
-	public void Character_Name_With_Letters_And_Spaces_That_Is_Not_Too_Long_And_Not_Too_Short_Returns_Ok([Range(MinLength, MaxLength)] uint length)
+	public void Character_Name_With_Letters_And_Spaces_That_Is_Not_Too_Long_And_Not_Too_Short_Returns_Ok([Range(MinCharacterNameLength, MaxCharacterNameLength)] uint length)
 	{
 		var letters = Letters(length);
 
@@ -64,7 +65,7 @@ public class CharacterNameValidatorTests
 
 	[Test]
 	[Repeat(50)]
-	public void Character_Name_With_Only_Symbols_Should_Return_Invalid_Symbols([Range(MinLength, MaxLength)] uint length)
+	public void Character_Name_With_Only_Symbols_Should_Return_Invalid_Symbols([Range(MinCharacterNameLength, MaxCharacterNameLength)] uint length)
 	{
 		var input = MixOf(length, Symbol);
 
@@ -75,7 +76,7 @@ public class CharacterNameValidatorTests
 
 	[Test]
 	[Repeat(50)]
-	public void Character_Name_With_Symbols_And_Letters_And_Spaces_Should_Return_Invalid_Symbols([Range(MinLength, MaxLength)] uint length)
+	public void Character_Name_With_Symbols_And_Letters_And_Spaces_Should_Return_Invalid_Symbols([Range(MinCharacterNameLength, MaxCharacterNameLength)] uint length)
 	{
 		var input = MixOf(length, Letter, Symbol, LetterOrSpace);
 
@@ -86,7 +87,7 @@ public class CharacterNameValidatorTests
 
 	[Test]
 	[Repeat(50)]
-	public void Character_Name_With_Letters_Spaces_And_Numbers_Should_Return_Ok([Range(MinLength, MaxLength)] uint length)
+	public void Character_Name_With_Letters_Spaces_And_Numbers_Should_Return_Ok([Range(MinCharacterNameLength, MaxCharacterNameLength)] uint length)
 	{
 		var input = OneOf(Letter, Digit)
 			.FollowedByCycleOf(length - 2, Letter, Digit, Space)
@@ -99,7 +100,7 @@ public class CharacterNameValidatorTests
 
 	[Test]
 	[Repeat(50)]
-	public void Character_Name_With_Other_Whitespace_Should_Return_Invalid_Symbols([Range(MinLength, MaxLength)] uint length)
+	public void Character_Name_With_Other_Whitespace_Should_Return_Invalid_Symbols([Range(MinCharacterNameLength, MaxCharacterNameLength)] uint length)
 	{
 		var input = MixOf(length, Letter, OtherWhiteSpace);
 
@@ -110,9 +111,9 @@ public class CharacterNameValidatorTests
 
 	[Test]
 	[Repeat(50)]
-	public void Character_Name_Starting_With_Spaces_Returns_Leading_Whitespace_Error([Range(MinLength, MaxLength - 1u)] uint lengthOfSpaces)
+	public void Character_Name_Starting_With_Spaces_Returns_Leading_Whitespace_Error([Range(MinCharacterNameLength, MaxCharacterNameLength - 1u)] uint lengthOfSpaces)
 	{
-		var remainingLength = MaxLength - lengthOfSpaces;
+		var remainingLength = MaxCharacterNameLength - lengthOfSpaces;
 		var input = Spaces(lengthOfSpaces)().FollowedByMixOf(remainingLength, Letter, Digit, Space);
 
 		var result = Validate(input);
@@ -122,9 +123,9 @@ public class CharacterNameValidatorTests
 
 	[Test]
 	[Repeat(50)]
-	public void Character_Name_Ending_With_Space_Returns_Trailing_Whitespace_Error([Range(MinLength, MaxLength - 1u)] uint lengthOfSpaces)
+	public void Character_Name_Ending_With_Space_Returns_Trailing_Whitespace_Error([Range(MinCharacterNameLength, MaxCharacterNameLength - 1u)] uint lengthOfSpaces)
 	{
-		var startLength = MaxLength - lengthOfSpaces;
+		var startLength = MaxCharacterNameLength - lengthOfSpaces;
 		var input = MixOf(startLength, Letter, Digit).FollowedByMixOf(lengthOfSpaces, Space);
 
 		var result = Validate(input);
@@ -134,7 +135,7 @@ public class CharacterNameValidatorTests
 
 	[Test]
 	[Repeat(50)]
-	public void Character_Name_With_Groups_Of_Spaces_Returns_Invalid_Whitespace_Error([Range(MinLength + 1u, MaxLength)] uint length, [Range(2u, MaxLength - 2u)] uint spaceGroupSize)
+	public void Character_Name_With_Groups_Of_Spaces_Returns_Invalid_Whitespace_Error([Range(MinCharacterNameLength + 1u, MaxCharacterNameLength)] uint length, [Range(2u, MaxCharacterNameLength - 2u)] uint spaceGroupSize)
 	{
 		var start = OneOf(Letter, Digit);
 		var middle = Cycle(length - 2,  Spaces(spaceGroupSize), Digit, Letter);

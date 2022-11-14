@@ -4,6 +4,7 @@ using Valspire.Core.CharacterCreation;
 using Valspire.Func.Primitives.ResultPrimitive;
 using Valspire.Func.Primitives.TextPrimitive;
 using Valspire.Test.Generators.Primitives;
+using static Valspire.Core.Facts;
 using static Valspire.Core.CharacterCreation.CharacterNameValidator;
 using static Valspire.Core.CharacterCreation.CharacterNameValidator.Result;
 
@@ -66,7 +67,7 @@ public class CharacterNameTests
 	
 	[Test]
 	[Repeat(50)]
-	public void Create_Returns_A_Success_With_Value_For_Texts_That_Pass_Validation([Range(MinLength, MaxLength)] uint length)
+	public void Create_Returns_A_Success_With_Value_For_Texts_That_Pass_Validation([Range(MinCharacterNameLength, MaxCharacterNameLength)] uint length)
 	{
 		while (true)
 		{
@@ -91,7 +92,7 @@ public class CharacterNameTests
 
 	[Test]
 	[Repeat(50)]
-	public void Create_Returns_A_Success_For_Texts_That_Pass_Validation([Range(MinLength, MaxLength)] uint length)
+	public void Create_Returns_A_Success_For_Texts_That_Pass_Validation([Range(MinCharacterNameLength, MaxCharacterNameLength)] uint length)
 	{
 		while (true)
 		{

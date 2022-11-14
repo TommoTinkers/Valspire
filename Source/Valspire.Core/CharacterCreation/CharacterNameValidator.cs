@@ -1,13 +1,11 @@
 using Valspire.Func.Primitives.TextPrimitive;
 using static Valspire.Core.CharacterCreation.CharacterNameValidator.Result;
+using static Valspire.Core.Facts;
 
 namespace Valspire.Core.CharacterCreation;
 
 public static class CharacterNameValidator
 {
-	public const uint MinLength = 3u;
-	public const uint MaxLength = 16u;
-	
 	public enum Result
 	{
 		TooShort,
@@ -24,8 +22,8 @@ public static class CharacterNameValidator
 		var name = proposedName.Value;
 		return name switch
 		{
-			{ Length: < (int)MinLength } => TooShort,
-			{ Length: > (int)MaxLength } => TooLong,
+			{ Length: < (int)MinCharacterNameLength } => TooShort,
+			{ Length: > (int)MaxCharacterNameLength } => TooLong,
 			_ => name.All(ValidateCharacter) is false 
 				? InvalidSymbol 
 				: name.StartsWith(" ")
