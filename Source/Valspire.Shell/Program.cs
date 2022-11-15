@@ -14,4 +14,7 @@ Text ReadLine()
 	}
 }
 
-var view = new ChoosingCharacterNameView(new ChoosingCharacterNameState(),t =>  Console.Write(t.Value), ReadLine);
+// ReSharper disable once ObjectCreationAsStatement
+#pragma warning disable CA1806
+new ChoosingCharacterNameView(new ChoosingCharacterNameState(),t =>  Console.Write(t.Value), ReadLine);
+#pragma warning restore CA1806

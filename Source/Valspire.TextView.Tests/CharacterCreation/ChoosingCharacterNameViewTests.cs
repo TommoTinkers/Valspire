@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using NUnit.Framework;
 using Valspire.Core.CharacterCreation;
@@ -7,14 +8,28 @@ using Valspire.TextView.CharacterCreation;
 using static Valspire.Core.CharacterCreation.CharacterNameValidator.Result;
 using static Valspire.Test.Generators.Primitives.Strings;
 
+
 namespace Valspire.TextView.Tests.CharacterCreation;
 
+// ReSharper disable ObjectCreationAsStatement
 [TestFixture]
+[SuppressMessage("Performance", "CA1806:Do not ignore method results")]
 public class ChoosingCharacterNameViewTests
 {
 	private static void FakeOutputter(Text text) {}
 
-	private static Text FakeInputter() => "Hello World".AsText();
+	private static Text FakeInputter() => "Hello World";
+
+	[Test]
+	public void Calls_Text_Outputter_At_Least_Once_When_Constructed()
+	{
+		var wasOutputterCalled = false;
+		Action<Text> outputter = _ => wasOutputterCalled = true;
+
+		new ChoosingCharacterNameView(new ChoosingCharacterNameState(), outputter, FakeInputter);
+
+		wasOutputterCalled.Should().BeTrue();
+	}
 
 	
 	[Test]
@@ -28,7 +43,7 @@ public class ChoosingCharacterNameViewTests
 			return new Text("Hello World");
 		}
 		
-		var view = new ChoosingCharacterNameView(new ChoosingCharacterNameState(), FakeOutputter, TextInputter);
+		new ChoosingCharacterNameView(new ChoosingCharacterNameState(), FakeOutputter, TextInputter);
 
 		wasInputterCalled.Should().BeTrue();
 	}

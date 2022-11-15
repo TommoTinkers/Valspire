@@ -35,6 +35,8 @@ public static class Strings
 	public static string Whitespace(uint length) => FromCharacters(AllWhitespace, length);
 	public static string NonWhitespace(uint length) => FromCharacters(NonWhitespaceSymbols, length);
 
+	public static string NonBlankNonsense(uint length) => OneOf(Digit, Symbol, Letter).FollowedByNonsense(length - 1u);
+	
 	public static string Nonsense(uint length) => FromCharacters(All, length);
 
 	public static string MixOf(uint length, params Func<string>[] generators) => Mix(Cycle(length, generators));

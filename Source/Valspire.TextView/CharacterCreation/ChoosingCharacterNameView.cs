@@ -1,6 +1,7 @@
 using Valspire.Core.CharacterCreation;
 using Valspire.Core.Engine.States.CharacterCreation;
 using Valspire.Func.Primitives.TextPrimitive;
+using Valspire.TextView.Formatting;
 
 namespace Valspire.TextView.CharacterCreation;
 
@@ -10,7 +11,8 @@ public class ChoosingCharacterNameView
 
 	public ChoosingCharacterNameView(ChoosingCharacterNameState choosingCharacterNameState, Action<Text> outputter, Func<Text> inputter)
 	{
-
+		outputter(EnterNamePrompt.WithPrompt());
+		
 		while (true)
 		{
 			var input = inputter();
