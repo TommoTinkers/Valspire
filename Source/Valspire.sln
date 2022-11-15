@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valspire.Test.Generators", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valspire.Shell", "Valspire.Shell\Valspire.Shell.csproj", "{0CD1AE93-D65B-4481-A0E9-D4FE42D189FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valspire.TextView", "Valspire.TextView\Valspire.TextView.csproj", "{D59128B7-424C-489E-8813-0D08A59942CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valspire.TextView.Tests", "Valspire.TextView.Tests\Valspire.TextView.Tests.csproj", "{BBA3BFF8-241F-4176-9476-CEB1C616EE22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,13 @@ Global
 		{0CD1AE93-D65B-4481-A0E9-D4FE42D189FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CD1AE93-D65B-4481-A0E9-D4FE42D189FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CD1AE93-D65B-4481-A0E9-D4FE42D189FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D59128B7-424C-489E-8813-0D08A59942CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D59128B7-424C-489E-8813-0D08A59942CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D59128B7-424C-489E-8813-0D08A59942CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D59128B7-424C-489E-8813-0D08A59942CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBA3BFF8-241F-4176-9476-CEB1C616EE22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA3BFF8-241F-4176-9476-CEB1C616EE22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA3BFF8-241F-4176-9476-CEB1C616EE22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA3BFF8-241F-4176-9476-CEB1C616EE22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
