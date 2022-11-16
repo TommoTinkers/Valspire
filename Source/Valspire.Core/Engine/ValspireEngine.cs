@@ -1,5 +1,4 @@
-using Valspire.Core.Engine.States;
-using Valspire.Core.Engine.States.CharacterCreation;
+using Valspire.Core.CharacterCreation.States;
 
 namespace Valspire.Core.Engine;
 

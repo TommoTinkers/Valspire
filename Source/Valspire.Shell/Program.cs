@@ -1,4 +1,4 @@
-﻿using Valspire.Core.Engine.States.CharacterCreation;
+﻿using Valspire.Core.CharacterCreation.States;
 using Valspire.Func.Primitives.TextPrimitive;
 using Valspire.TextView.CharacterCreation;
 

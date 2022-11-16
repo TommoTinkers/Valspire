@@ -1,7 +1,7 @@
 using FluentAssertions;
 using NUnit.Framework;
+using Valspire.Core.CharacterCreation.States;
 using Valspire.Core.Engine;
-using Valspire.Core.Engine.States.CharacterCreation;
 
 namespace Valspire.Core.Tests.Engine;
 
