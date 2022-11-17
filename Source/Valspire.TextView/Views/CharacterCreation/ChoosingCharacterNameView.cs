@@ -4,7 +4,7 @@ using Valspire.Func.Primitives.ResultPrimitive;
 using Valspire.Func.Primitives.TextPrimitive;
 using Valspire.TextView.Formatting;
 
-namespace Valspire.TextView.CharacterCreation;
+namespace Valspire.TextView.Views.CharacterCreation;
 
 public class ChoosingCharacterNameView
 {

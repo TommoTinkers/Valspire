@@ -11,4 +11,8 @@
       <ProjectReference Include="..\Valspire.Func\Valspire.Func.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Providers" />
+    </ItemGroup>
+
 </Project>

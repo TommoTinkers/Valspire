@@ -1,6 +1,6 @@
 ﻿using Valspire.Core.CharacterCreation.Modes;
 using Valspire.Func.Primitives.TextPrimitive;
-using Valspire.TextView.CharacterCreation;
+using Valspire.TextView.Views.CharacterCreation;
 
 Text ReadLine()
 {

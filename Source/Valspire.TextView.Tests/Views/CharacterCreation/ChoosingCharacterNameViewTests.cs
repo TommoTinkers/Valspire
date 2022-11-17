@@ -3,15 +3,14 @@ using NUnit.Framework;
 using Valspire.Core.CharacterCreation;
 using Valspire.Core.CharacterCreation.Modes;
 using Valspire.Func.Primitives.TextPrimitive;
-using Valspire.TextView.CharacterCreation;
+using Valspire.TextView.Views.CharacterCreation;
 using static Valspire.Core.CharacterCreation.CharacterNameValidator.Result;
 using static Valspire.Test.Generators.Primitives.Strings;
 
 
-namespace Valspire.TextView.Tests.CharacterCreation;
+namespace Valspire.TextView.Tests.Views.CharacterCreation;
 
 [TestFixture]
-
 public class ChoosingCharacterNameViewTests
 {
 	private static void FakeOutputter(Text text) {}

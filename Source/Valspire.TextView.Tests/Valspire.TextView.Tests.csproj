@@ -19,4 +19,9 @@
       <ProjectReference Include="..\Valspire.TextView\Valspire.TextView.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Providers" />
+      <Folder Include="Views" />
+    </ItemGroup>
+
 </Project>
