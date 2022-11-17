@@ -1,4 +1,4 @@
-﻿using Valspire.Core.CharacterCreation.States;
+﻿using Valspire.Core.CharacterCreation.Modes;
 using Valspire.Func.Primitives.TextPrimitive;
 using Valspire.TextView.CharacterCreation;
 
@@ -14,5 +14,5 @@ Text ReadLine()
 	}
 }
 
-var view = new ChoosingCharacterNameView(new ChoosingCharacterNameState());
+var view = new ChoosingCharacterNameView(new ChoosingCharacterNameMode());
 view.Start(t  => Console.Write(t.Value), ReadLine);

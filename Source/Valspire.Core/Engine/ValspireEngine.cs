@@ -1,11 +1,11 @@
-using Valspire.Core.CharacterCreation.States;
+using Valspire.Core.CharacterCreation.Modes;
 
 namespace Valspire.Core.Engine;
 
 public static class ValspireEngine
 {
-	public static ChoosingCharacterNameState StartNewGame()
+	public static ChoosingCharacterNameMode StartNewGame()
 	{
-		return new ChoosingCharacterNameState();
+		return new ChoosingCharacterNameMode();
 	}
 }

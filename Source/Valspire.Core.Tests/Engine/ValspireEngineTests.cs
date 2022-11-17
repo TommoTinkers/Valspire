@@ -1,6 +1,6 @@
 using FluentAssertions;
 using NUnit.Framework;
-using Valspire.Core.CharacterCreation.States;
+using Valspire.Core.CharacterCreation.Modes;
 using Valspire.Core.Engine;
 
 namespace Valspire.Core.Tests.Engine;
@@ -9,10 +9,10 @@ namespace Valspire.Core.Tests.Engine;
 public class ValspireEngineTests
 {
 	[Test]
-	public void StartNewGame_Gives_A_Character_Creation_State()
+	public void StartNewGame_Gives_A_Character_Creation_Mode()
 	{
-		var state = ValspireEngine.StartNewGame();
+		var mode = ValspireEngine.StartNewGame();
 
-		state.Should().BeAssignableTo<ChoosingCharacterNameState>();
+		mode.Should().BeAssignableTo<ChoosingCharacterNameMode>();
 	}
 }

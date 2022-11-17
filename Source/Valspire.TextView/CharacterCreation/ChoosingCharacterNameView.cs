@@ -1,5 +1,5 @@
 using Valspire.Core.CharacterCreation;
-using Valspire.Core.CharacterCreation.States;
+using Valspire.Core.CharacterCreation.Modes;
 using Valspire.Func.Primitives.ResultPrimitive;
 using Valspire.Func.Primitives.TextPrimitive;
 using Valspire.TextView.Formatting;
@@ -10,14 +10,14 @@ public class ChoosingCharacterNameView
 {
 	private static readonly Text EnterNamePrompt = "Enter your name";
 	
-	private readonly ChoosingCharacterNameState state;
+	private readonly ChoosingCharacterNameMode mode;
 
-	public ChoosingCharacterNameView(ChoosingCharacterNameState state)
+	public ChoosingCharacterNameView(ChoosingCharacterNameMode mode)
 	{
-		this.state = state;
+		this.mode = mode;
 	}
 
-	public ChoosingCharacterAttributesState Start(Action<Text> outputter, Func<Text> inputter)
+	public ChoosingCharacterAttributesMode Start(Action<Text> outputter, Func<Text> inputter)
 	{
 		outputter(EnterNamePrompt.WithPrompt());
 		
@@ -28,7 +28,7 @@ public class ChoosingCharacterNameView
 
 			if (nameResult is Success<CharacterName, CharacterNameValidator.Result> name)
 			{
-				return state.ChooseName(name.Value);
+				return mode.ChooseName(name.Value);
 			}
 		}
 	}
