@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using NUnit.Framework;
 using Valspire.Core.CharacterCreation;
@@ -11,9 +10,8 @@ using static Valspire.Test.Generators.Primitives.Strings;
 
 namespace Valspire.TextView.Tests.CharacterCreation;
 
-// ReSharper disable ObjectCreationAsStatement
 [TestFixture]
-[SuppressMessage("Performance", "CA1806:Do not ignore method results")]
+
 public class ChoosingCharacterNameViewTests
 {
 	private static void FakeOutputter(Text text) {}
@@ -26,7 +24,8 @@ public class ChoosingCharacterNameViewTests
 		var wasOutputterCalled = false;
 		Action<Text> outputter = _ => wasOutputterCalled = true;
 
-		new ChoosingCharacterNameView(new ChoosingCharacterNameState(), outputter, FakeInputter);
+		var view = new ChoosingCharacterNameView(new ChoosingCharacterNameState());
+		view.Start(outputter, FakeInputter);
 
 		wasOutputterCalled.Should().BeTrue();
 	}
@@ -42,8 +41,9 @@ public class ChoosingCharacterNameViewTests
 			wasInputterCalled = true;
 			return new Text("Hello World");
 		}
-		
-		new ChoosingCharacterNameView(new ChoosingCharacterNameState(), FakeOutputter, TextInputter);
+
+		var view = new ChoosingCharacterNameView(new ChoosingCharacterNameState());
+		view.Start(FakeOutputter, TextInputter);
 
 		wasInputterCalled.Should().BeTrue();
 	}
@@ -61,7 +61,9 @@ public class ChoosingCharacterNameViewTests
 				{
 					return "Hello";
 				}
+				
 				var nonsense = OneOf(Letter, Digit).FollowedByNonsense(nonsenseLength);
+				
 				if (CharacterNameValidator.Validate(nonsense) != Ok)
 				{
 					return nonsense.AsText();
@@ -69,8 +71,23 @@ public class ChoosingCharacterNameViewTests
 			}
 		}
 		
-		var view = new ChoosingCharacterNameView(new ChoosingCharacterNameState(), FakeOutputter, TextInputter);
+		var view = new ChoosingCharacterNameView(new ChoosingCharacterNameState());
+		view.Start(FakeOutputter, TextInputter);
 
 		totalCalls.Should().Be(callsToExpect);
+	}
+
+	[Test]
+	public void When_Text_Inputter_Returns_A_Valid_Name_The_View_Returns_A_State()
+	{
+		Text TextInputter()
+		{
+			return "Hello";
+		}
+		
+		var view = new ChoosingCharacterNameView(new ChoosingCharacterNameState());
+		var nextState = view.Start(FakeOutputter, FakeInputter);
+
+		nextState.Should().BeAssignableTo<ChoosingCharacterAttributesState>();
 	}
 }
